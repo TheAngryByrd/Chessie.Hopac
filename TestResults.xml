@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac/tests/Chessie.Hopac.Tests/bin/Release/Chessie.Hopac.Tests.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-12-03" time="07:50:25">
+  <environment nunit-version="2.6.4.14350" clr-version="4.0.30319.42000" os-version="Unix 15.6.0.0" platform="Unix" cwd="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac" machine-name="Jimmys-MacBook-Pro.local" user="jimmybyrd" user-domain="Jimmys-MacBook-Pro.local" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac/tests/Chessie.Hopac.Tests/bin/Release/Chessie.Hopac.Tests.dll" executed="True" result="Success" success="True" time="0.029" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="Chessie" executed="True" result="Success" success="True" time="0.025" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Hopac" executed="True" result="Success" success="True" time="0.025" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="Tests" executed="True" result="Success" success="True" time="0.025" asserts="0">
+                <results>
+                  <test-case name="Chessie.Hopac.Tests.hello returns 42" executed="True" result="Success" success="True" time="0.021" asserts="1" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
