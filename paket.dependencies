@@ -1,6 +1,9 @@
 source https://nuget.org/api/v2
 
+nuget Chessie
 nuget FSharp.Core redirects: force
+nuget hopac
+framework: >= net45
 
 group Build
   source https://nuget.org/api/v2
