@@ -44,7 +44,64 @@ module JobTrial =
 
     let inline ofJobResult (JobResult jr) = jr
 
+
+    let inline bindJobResult (next : 'a -> JobResult<'b, 'c>) (jr : JobResult<'a,'c>) =
+      let fSuccess (value, msgs) = 
+          value |> (next
+                    >> ofJobResult
+                    >> Job.map (mergeMessages msgs))
+            
+      let fFailure errs = 
+          errs
+          |> Bad
+          |> Job.result
+      jr
+      |> ofJobResult
+      |> Job.bind (either fSuccess fFailure)
+      |> JobResult
+
+    let inline bindJobOfResult (next : 'a -> JobResult<'b, 'c>) (r : Job<Result<'a,'c>>) =
+      r 
+      |> ofJobOfResult
+      |> bindJobResult next
+
+    let inline bindResult (next : 'a -> JobResult<'b, 'c>) (r : Result<'a,'c>) =
+      r 
+      |> ofResult
+      |> bindJobResult next
+
+    let inline bindAsyncResult (next : 'a -> JobResult<'b, 'c>) (r : AsyncResult<'a,'c>) =
+      r 
+      |> ofAsyncResult
+      |> bindJobResult next
+    let inline bindAsyncOfResult (next : 'a -> JobResult<'b, 'c>) (r : Async<Result<'a,'c>>) =
+      r 
+      |> ofAsyncOfResult
+      |> bindJobResult next
+
+    let inline bindTaskOfResult (next : 'a -> JobResult<'b, 'c>) (r : Task<Result<'a,'c>>) =
+      r 
+      |> ofTaskOfResult
+      |> bindJobResult next
+
     type JobTrialBuilder () =
+
+      member __.Bind(jobResult : JobResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+        bindJobResult binder jobResult
+
+      member __.Bind(jobResult : Job<Result<'a, 'c>>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+        bindJobOfResult binder jobResult
+
+      member __.Bind(result : Result<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+        bindResult binder result
+
+      member __.Bind(result : AsyncResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+        bindAsyncResult binder result
+
+      member __.Bind(result : Async<Result<'a, 'c>>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+        bindAsyncOfResult binder result
+      member __.Bind(result : Task<Result<'a, 'c>>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+        bindTaskOfResult binder result
       member __.Return value : JobResult<'a,'b> =
        value
        |> ofValue 
