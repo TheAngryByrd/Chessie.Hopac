@@ -1,4 +1,6 @@
 FSharp.Core
+Chessie
+Hopac
 group Test
 NUnit
 NUnit.Runners
