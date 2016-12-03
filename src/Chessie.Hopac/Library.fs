@@ -123,6 +123,14 @@ module JobTrial =
       member __.ReturnFrom (value : Task<Result<'a,'b>>) = 
         value
         |> ofTaskOfResult
+
+      member __.Zero () = __.Return ()
+
+      member __.Combine (a : JobResult<unit,'a>,b) = bindJobResult b a
+
+      member __.Delay(f : unit -> JobResult<'a,'b>) = f 
+
+      member __.Run (f) = f ()
   
     let jobTrial = JobTrialBuilder()
     

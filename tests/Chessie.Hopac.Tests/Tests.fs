@@ -112,3 +112,13 @@ let ``Computation Expreession Binds TaskOfResult`` () =
   }
   let result = returnsReturn |> getOkValue
   Assert.AreEqual(42,result)
+
+[<Test>]
+let ``Computation Expreession Zero/Combine/Delay/Run`` () =
+  let returnsReturn = jobTrial {
+    let result =42
+    if true then ()
+    return result
+  }
+  let result = returnsReturn |> getOkValue
+  Assert.AreEqual(42,result)
