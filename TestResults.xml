@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac/tests/Chessie.Hopac.Tests/bin/Release/Chessie.Hopac.Tests.dll" total="16" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-12-09" time="18:36:25">
+<test-results name="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac/tests/Chessie.Hopac.Tests/bin/Release/Chessie.Hopac.Tests.dll" total="16" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-12-10" time="11:33:29">
   <environment nunit-version="2.6.4.14350" clr-version="4.0.30319.42000" os-version="Unix 15.6.0.0" platform="Unix" cwd="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac" machine-name="Jimmys-MacBook-Pro.local" user="jimmybyrd" user-domain="Jimmys-MacBook-Pro.local" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Assembly" name="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac/tests/Chessie.Hopac.Tests/bin/Release/Chessie.Hopac.Tests.dll" executed="True" result="Success" success="True" time="0.114" asserts="0">
+  <test-suite type="Assembly" name="/Users/jimmybyrd/Documents/GitHub/Chessie.Hopac/tests/Chessie.Hopac.Tests/bin/Release/Chessie.Hopac.Tests.dll" executed="True" result="Success" success="True" time="0.099" asserts="0">
     <results>
-      <test-suite type="Namespace" name="Chessie" executed="True" result="Success" success="True" time="0.109" asserts="0">
+      <test-suite type="Namespace" name="Chessie" executed="True" result="Success" success="True" time="0.093" asserts="0">
         <results>
-          <test-suite type="Namespace" name="Hopac" executed="True" result="Success" success="True" time="0.109" asserts="0">
+          <test-suite type="Namespace" name="Hopac" executed="True" result="Success" success="True" time="0.093" asserts="0">
             <results>
-              <test-suite type="TestFixture" name="Tests" executed="True" result="Success" success="True" time="0.109" asserts="0">
+              <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="0.093" asserts="0">
                 <results>
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Binds Async" executed="True" result="Success" success="True" time="0.073" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Binds AsyncResult" executed="True" result="Success" success="True" time="0.006" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Binds JobOfResult" executed="True" result="Success" success="True" time="0.003" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Binds JobResult" executed="True" result="Success" success="True" time="0.002" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Binds Result" executed="True" result="Success" success="True" time="0.002" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Binds Task" executed="True" result="Success" success="True" time="0.003" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns async" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns AsyncResult" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns job" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns JobResult" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns Result" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns TaskOfResult" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Returns value" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession TryFinally" executed="True" result="Success" success="True" time="0.004" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession TryWith" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                  <test-case name="Chessie.Hopac.Tests.Computation Expreession Zero/Combine/Delay/Run" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                  <test-suite type="TestFixture" name="ComputationExpression" executed="True" result="Success" success="True" time="0.092" asserts="0">
+                    <results>
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Binds Async" executed="True" result="Success" success="True" time="0.052" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Binds AsyncResult" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Binds JobOfResult" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Binds JobResult" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Binds Result" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Binds Task" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns async" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns AsyncResult" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns job" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns JobResult" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns Result" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns TaskOfResult" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Returns value" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession TryFinally" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession TryWith" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="Chessie.Hopac.Tests.ComputationExpression.Computation Expreession Zero/Combine/Delay/Run" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                    </results>
+                  </test-suite>
                 </results>
               </test-suite>
             </results>
