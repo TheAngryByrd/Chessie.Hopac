@@ -8,12 +8,8 @@ open System.Threading.Tasks
 type JobResult<'a, 'b> = 
     | JobResult of Job<Result<'a, 'b>>
 
-
 [<AutoOpen>]
 module JobTrial =
-
-
-
     let inline ofValue value =
         value
         |> ok 
@@ -44,20 +40,22 @@ module JobTrial =
         |> Async.ofAsyncResult
         |> Job.fromAsync
         |> ofJobOfResult
+
     let inline ofAsyncOfResult (value : Async<Result<'a,'b>>) =
         value
         |> Job.fromAsync
         |> ofJobOfResult
 
-
     let inline ofTask (value : Task<_>) =
         value
         |> Job.awaitTask
         |> ofJob
+
     let inline ofTaskOfResult (value : Task<Result<'a,'b>>) =
         value
         |> Job.awaitTask
         |> ofJobOfResult
+
     let inline ofJobResult (JobResult jr) = jr
     let inline bindJobResult (next : 'a -> JobResult<'b, 'c>) (jr : JobResult<'a,'c>) =
       let fSuccess (value, msgs) = 
@@ -98,7 +96,6 @@ module JobTrial =
       |> ofTaskOfResult
       |> bindJobResult next
 
-
     let inline mapFun f x =
       x |> bindJobResult (f >> ofValue)
 
@@ -130,24 +127,32 @@ module JobTrial =
 
       member __.Bind(result : Async<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         result |> ofAsync |> bindJobResult binder 
+      
       member __.Bind(result : Task<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         result |> ofTask |> bindJobResult binder 
+     
       member __.Return value : JobResult<'a,'b> =
-       value
-       |> ofValue 
-      member __.ReturnFrom (value : JobResult<'a,'b>) = value
+        value
+        |> ofValue 
+      member __.ReturnFrom (value : JobResult<'a,'b>) =
+        value
 
       member __.ReturnFrom (value : Job<_>) = 
-        value |> ofJob
+        value 
+        |> ofJob
+      
       member __.ReturnFrom (value : Result<'a,'b>) = 
         value
         |> ofResult
+      
       member __.ReturnFrom (value : AsyncResult<'a,'b>) = 
         value
         |> ofAsyncResult
+      
       member __.ReturnFrom (value : Async<_>) = 
         value
         |> ofAsync
+     
       member __.ReturnFrom (value : Task<_>) = 
         value
         |> ofTask
@@ -162,6 +167,7 @@ module JobTrial =
 
       member __.TryWith(jobResult, catchHandler : exn -> JobResult<'a, 'b>) : JobResult<'a, 'b> = 
           job.TryWith( jobResult >> ofJobResult, (catchHandler >> ofJobResult)) |> JobResult
+      
       member __.TryFinally(jobResult , compensation : unit -> unit) : JobResult<'a, 'b> = 
           job.TryFinally( jobResult >> ofJobResult, compensation) |> JobResult
   
