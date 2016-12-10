@@ -17,6 +17,22 @@ module JobTrial =
         |> Job.result
         |> JobResult
 
+    let inline ofFailure value =
+        value
+        |> fail
+        |> Job.result
+        |> JobResult
+
+    let inline ofOption failCase value =
+      match value with
+      | Some v -> v |> ofValue
+      | None -> failCase ()
+
+    let inline ofChoice failCase value =
+      match value with
+      | Choice1Of2 v -> v |> ofValue
+      | Choice2Of2 e -> e |> failCase 
+
     let inline ofJob value =
       value
       |> Job.map ok
@@ -88,6 +104,9 @@ module JobTrial =
       |> ofJobOfResult
       |> bindJobResult next
 
+    let inline bindJob next r = 
+      r |> ofJob |> bindJobResult next
+
     let inline bindResult (next : 'a -> JobResult<'b, 'c>) (r : Result<'a,'c>) =
       r 
       |> ofResult
@@ -122,13 +141,21 @@ module JobTrial =
       |> Job.map(Trial.mapFailure f) 
       |> JobResult
 
+    let inline ofJobOption failCase value =
+        value
+        |> bindJob (ofOption failCase)
+        
+    let inline ofJobChoice failCase value=
+        value
+        |> bindJob (ofChoice failCase)
+
     type JobTrialBuilder () =
 
       member __.Bind(jobResult : JobResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         bindJobResult binder jobResult
 
       member __.Bind(jobResult : Job<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
-        jobResult |> ofJob |> bindJobResult binder 
+        bindJob binder jobResult
 
       member __.Bind(result : Result<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         bindResult binder result
