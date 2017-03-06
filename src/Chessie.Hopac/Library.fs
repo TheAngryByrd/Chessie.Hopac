@@ -1,5 +1,6 @@
 namespace Chessie.Hopac
 
+open System
 open Chessie.ErrorHandling
 open Hopac
 open System.Threading.Tasks
@@ -29,6 +30,16 @@ module JobTrial =
         value
         |> Job.result
         |> ofJobOfResult
+
+    let inline ofError value =
+      value 
+      |> fail
+      |> ofResult
+
+    let inline ofOption error value =
+        match value with
+        | Some v -> v |> ofValue
+        | None -> error () |> fail |> ofResult
 
     let inline ofAsync value =
       value
@@ -164,6 +175,18 @@ module JobTrial =
       member __.Delay(f : unit -> JobResult<'a,'b>) = f 
 
       member __.Run (f) = f ()
+
+      member x.Using(d:#IDisposable, body) =
+            let result = fun () -> body d
+            x.TryFinally (result, fun () ->
+                match d with
+                | null -> ()
+                | d -> d.Dispose())
+      member x.While (guard, body) =
+            if not <| guard () then
+                x.Zero()
+            else
+                bindJobResult (fun () -> x.While(guard, body)) (body())
 
       member __.TryWith(jobResult, catchHandler : exn -> JobResult<'a, 'b>) : JobResult<'a, 'b> = 
           job.TryWith( jobResult >> ofJobResult, (catchHandler >> ofJobResult)) |> JobResult
