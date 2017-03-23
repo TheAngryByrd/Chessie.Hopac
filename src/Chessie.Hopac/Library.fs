@@ -116,6 +116,7 @@ module JobTrial =
       r 
       |> ofAsyncResult
       |> bindJobResult next
+
     let inline bindAsyncOfResult (next : 'a -> JobResult<'b, 'c>) (r : Async<Result<'a,'c>>) =
       r 
       |> ofAsyncOfResult
@@ -135,6 +136,12 @@ module JobTrial =
     let inline mapResult f x =
       x |> bindJobResult (f >> ofResult)
 
+    let inline mapAsync f x =
+      x |> bindJobResult (f >> ofAsync)
+    
+    let inline mapTask f x =
+      x |> bindJobResult (f >> ofTask)
+
     let inline mapFailure f (result : JobResult<_,_>) =  
       result
       |> ofJobResult
@@ -144,10 +151,31 @@ module JobTrial =
     let inline ofJobOption failCase value =
         value
         |> bindJob (ofOption failCase)
-        
-    let inline ofJobChoice failCase value=
+
+    let inline ofAsyncOption failCase value =
+        value
+        |> Job.fromAsync
+        |> ofJobOption failCase
+
+    let inline ofTaskOption failCase value =
+        value
+        |> Job.awaitTask
+        |> ofJobOption failCase
+
+    let inline ofJobOfChoice failCase value=
         value
         |> bindJob (ofChoice failCase)
+
+
+    let inline ofAsyncOfChoice failCase value=
+        value
+        |> Job.fromAsync
+        |> ofJobOfChoice failCase
+
+    let inline ofTaskOfChoice failCase value=
+        value
+        |> Job.awaitTask
+        |> ofJobOfChoice failCase
 
     type JobTrialBuilder () =
 
@@ -222,5 +250,11 @@ module JobTrial =
           job.TryFinally( jobResult >> ofJobResult, compensation) |> JobResult
   
     let jobTrial = JobTrialBuilder()
-    
-  
+
+    let catch (failCase : exn -> 'b) (v : JobResult<'a,'b>) = jobTrial {
+      try
+        return! v
+      with e -> 
+        return! failCase e |> ofFailure
+    }
+
