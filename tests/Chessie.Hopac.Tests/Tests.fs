@@ -1,7 +1,7 @@
 namespace Chessie.Hopac.Tests 
 
 open Chessie.Hopac
-open NUnit.Framework
+open Xunit
 open Hopac
 open Chessie.ErrorHandling
 open System.Threading.Tasks
@@ -16,110 +16,110 @@ module ComputationExpression =
       |> Trial.returnOrFail
 
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Returns value`` () =
       let return42 = jobTrial { return 42 }
       let result = return42 |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Returns job`` () =
 
       let returnsReturn = jobTrial{
         return! job { return 42 } 
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Returns JobResult`` () =
       let returnsReturn = jobTrial{
         return!  jobTrial { return 42 }
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Returns Result`` () =
       let returnsReturn = jobTrial{
         return! ok 42 
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Returns AsyncResult`` () =
       let returnsReturn = jobTrial{
         return! asyncTrial { return 42 }  
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Returns async`` () =
       let returnsReturn = jobTrial{
         return! async { return  42 }  
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Returns TaskOfResult`` () =
       let returnsReturn = jobTrial{
         return! Task.FromResult(42)
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Binds JobResult`` () =
       let returnsReturn = jobTrial{
         let! result = jobTrial { return 42 }
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Binds JobOfResult`` () =
       let returnsReturn = jobTrial{
         let! result = job { return 42 }
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Binds Result`` () =
       let returnsReturn = jobTrial{
         let! result = trial { return 42 }
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Binds AsyncResult`` () =
       let returnsReturn = jobTrial{
         let! result = asyncTrial { return 42 }
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Binds Async`` () =
       let returnsReturn = jobTrial{
         let! result = async { return  42 }
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
-    [<Test>]
+      Assert.Equal(42,result)
+    [<Fact>]
     let ``Computation Expreession Binds Task`` () =
       let returnsReturn = jobTrial{
         let! result = Task.FromResult(42)
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession Zero/Combine/Delay/Run`` () =
       let returnsReturn = jobTrial {
         let result =42
@@ -127,9 +127,9 @@ module ComputationExpression =
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession TryWith`` () =
       let returnsReturn = jobTrial {
         let result =42
@@ -139,9 +139,9 @@ module ComputationExpression =
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
 
-    [<Test>]
+    [<Fact>]
     let ``Computation Expreession TryFinally`` () =
       let returnsReturn = jobTrial {
         let result = 42
@@ -152,4 +152,4 @@ module ComputationExpression =
         return result
       }
       let result = returnsReturn |> getOkValue
-      Assert.AreEqual(42,result)
+      Assert.Equal(42,result)
