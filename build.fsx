@@ -77,19 +77,22 @@ Target "DotnetPack" (fun _ ->
                 Project = proj
                 Configuration = "Release"
                 OutputPath = IO.Directory.GetCurrentDirectory() @@ "dist"
-                AdditionalArgs = [sprintf "/p:PackageVersion=%s" release.NugetVersion]
+                AdditionalArgs = 
+                    [
+                        sprintf "/p:PackageVersion=%s" release.NugetVersion
+                        sprintf "/p:PackageReleaseNotes=\"%s\"" (String.Join("\n",release.Notes))
+                    ]
             }) 
     )
 )
-let distGlob = "dist/*.nupkg"
 
 Target "Publish" (fun _ ->
-    !! distGlob
-    |> Seq.iter(fun pkg ->
-        pkg
-        |> sprintf "nuget push %s --source https://www.nuget.org/api/v2/package"
-        |> DotNetCli.RunCommand id 
-    )
+    Paket.Push(fun c ->
+            { c with 
+                PublishUrl = "https://www.nuget.org"
+                WorkingDir = "dist"
+            }
+        )
 )
 
 "Clean" ==> "Publish"
