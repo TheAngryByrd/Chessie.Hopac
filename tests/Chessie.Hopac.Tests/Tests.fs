@@ -153,3 +153,20 @@ module ComputationExpression =
       }
       let result = returnsReturn |> getOkValue
       Assert.Equal(42,result)
+   
+    let makeDisposable () = 
+      { new System.IDisposable 
+        with member this.Dispose() = () }
+    [<Fact>]
+    let ``Computation Expreession Using`` () =
+      let returnsReturn = jobTrial {
+        use d = makeDisposable()
+        let result = 42
+        try 
+          () 
+        finally
+          ()
+        return result
+      }
+      let result = returnsReturn |> getOkValue
+      Assert.Equal(42,result)

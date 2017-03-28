@@ -52,11 +52,6 @@ module JobTrial =
       |> fail
       |> ofResult
 
-    let inline ofOption error value =
-        match value with
-        | Some v -> v |> ofValue
-        | None -> error () |> fail |> ofResult
-
     let inline ofAsync value =
       value
       |> Job.fromAsync
@@ -231,17 +226,17 @@ module JobTrial =
 
       member __.Run (f) = f ()
 
-      member x.Using(d:#IDisposable, body) =
+      member __.Using(d:#IDisposable, body) =
             let result = fun () -> body d
-            x.TryFinally (result, fun () ->
+            __.TryFinally (result, fun () ->
                 match d with
                 | null -> ()
                 | d -> d.Dispose())
-      member x.While (guard, body) =
+      member __.While (guard, body) =
             if not <| guard () then
-                x.Zero()
+                __.Zero()
             else
-                bindJobResult (fun () -> x.While(guard, body)) (body())
+                bindJobResult (fun () -> __.While(guard, body)) (body())
 
       member __.TryWith(jobResult, catchHandler : exn -> JobResult<'a, 'b>) : JobResult<'a, 'b> = 
           job.TryWith( jobResult >> ofJobResult, (catchHandler >> ofJobResult)) |> JobResult
