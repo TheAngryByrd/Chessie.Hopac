@@ -10,11 +10,11 @@
     <!-- summary is not migrated from project.json, but you can use the <Description> property for that if needed. -->
     <PackageTags>Hopac, Chessie, Rop, f#, fsharp</PackageTags>
     <PackageProjectUrl>https://github.com/TheAngryByrd/Chessie.Hopac</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/TheAngryByrd/Chessie.Hopac/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/TheAngryByrd/Chessie.Hopac/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <Authors>Jimmy Byrd</Authors>
-    <RepositoryUrl>https://raw.githubusercontent.com/sethjuarez/numl</RepositoryUrl>
+    <RepositoryUrl>https://github.com/TheAngryByrd/dotnet-mono</RepositoryUrl>
     <!-- owners is not supported in MSBuild -->
   </PropertyGroup>
   <PropertyGroup>
