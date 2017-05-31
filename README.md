@@ -6,8 +6,8 @@ Combines the best of Hopac and Chessie to create a JobTrial
 
 MacOS/Linux | Windows
 --- | ---
-[![Travis Badge](https://travis-ci.org/MyGithubUsername/Chessie.Hopac.svg?branch=master)](https://travis-ci.org/MyGithubUsername/Chessie.Hopac) | [![Build status](https://ci.appveyor.com/api/projects/status/github/MyGithubUsername/Chessie.Hopac?svg=true)](https://ci.appveyor.com/project/MyGithubUsername/Chessie.Hopac)
-[![Build History](https://buildstats.info/travisci/chart/MyGithubUsername/Chessie.Hopac)](https://travis-ci.org/MyGithubUsername/Chessie.Hopac/builds) | [![Build History](https://buildstats.info/appveyor/chart/MyGithubUsername/Chessie.Hopac)](https://ci.appveyor.com/project/MyGithubUsername/Chessie.Hopac)  
+[![Travis Badge](https://travis-ci.org/MyGithubUsername/Chessie.Hopac.svg?branch=master)](https://travis-ci.org/MyGithubUsername/Chessie.Hopac) | [![Build status](https://ci.appveyor.com/api/projects/status/github/MyGithubUsername/chessie-hopac?svg=true)](https://ci.appveyor.com/project/MyGithubUsername/chessie-hopac)
+[![Build History](https://buildstats.info/travisci/chart/MyGithubUsername/Chessie.Hopac)](https://travis-ci.org/MyGithubUsername/Chessie.Hopac/builds) | [![Build History](https://buildstats.info/appveyor/chart/MyGithubUsername/chessie-hopac)](https://ci.appveyor.com/project/MyGithubUsername/chessie-hopac)  
 
 
 ## Nuget 
