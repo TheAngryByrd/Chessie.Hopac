@@ -1,4 +1,4 @@
-#### 0.2.0-alpha001 - July 28 2017
+#### 0.2.0-alpha002 - July 28 2017
 * FEATURE: Add Tee functions
 
 #### 0.1.3 - April 5 2017
