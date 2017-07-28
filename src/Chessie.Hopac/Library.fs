@@ -9,6 +9,13 @@ open System.Threading.Tasks
 type JobResult<'a, 'b> = 
     | JobResult of Job<Result<'a, 'b>>
 
+module Job =
+    let inline tee (f: _ -> Job<unit>) x = job {
+          do! f x 
+          return x
+        }
+    let inline noop _ = Job.unit()
+
 [<AutoOpen>]
 module JobTrial =
     let inline ofValue value =
@@ -171,6 +178,37 @@ module JobTrial =
         value
         |> Job.awaitTask
         |> ofJobOfChoice failCase
+
+
+
+    let eitherJob fSuccess fFailure   (trialResult : JobResult<_,_>) =
+        trialResult
+        |> ofJobResult
+        |> Job.bind (Trial.either fSuccess fFailure)
+    let inline eitherFun fSuccess fFailure (trialResult : JobResult<_,_>) =         
+      eitherJob (fSuccess >> Job.result) (fFailure >> Job.result) trialResult
+    let inline eitherAsync fSuccess fFailure (trialResult : JobResult<_,_>) =  
+      eitherJob (fSuccess >> Job.fromAsync) (fFailure >> Job.fromAsync) trialResult
+    let inline eitherTask fSuccess fFailure (trialResult : JobResult<_,_>) = 
+      eitherJob (fSuccess >> Job.awaitTask) (fFailure >> Job.awaitTask) trialResult
+
+    let inline eitherTee fSuccess fFailure result =
+        Job.tee (eitherFun fSuccess fFailure) result
+        |> bindJob id
+
+    let inline successTee fSuccess result=
+      eitherTee fSuccess ignore result
+    let inline failureTee fFailure result=
+      eitherTee ignore fFailure result
+    let inline eitherTeeJob fSuccess fFailure result =
+        Job.tee (eitherJob fSuccess fFailure) result
+        |> bindJob id
+    let inline successTeeJob fSuccess result=
+      eitherTeeJob fSuccess Job.noop result
+    let inline failureTeeJob fFailure result=
+      eitherTeeJob Job.noop fFailure result
+
+
 
     type JobTrialBuilder () =
 
