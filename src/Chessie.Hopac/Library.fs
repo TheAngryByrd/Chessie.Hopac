@@ -5,15 +5,18 @@ open Chessie.ErrorHandling
 open Hopac
 open System.Threading.Tasks
 
+
 [<NoComparison;NoEquality>]
 type JobResult<'a, 'b> = 
     | JobResult of Job<Result<'a, 'b>>
 
-module Job =
-    let inline tee (f: _ -> Job<unit>) x = job {
-          do! f x 
-          return x
-        }
+
+module Job =    
+
+    let inline tee (x2yJ: _ -> Job<unit>) x = 
+      x 
+      |> x2yJ
+      |> Job.map(fun _ -> x)
     let inline noop _ = Job.unit()
 
 [<AutoOpen>]
@@ -181,7 +184,7 @@ module JobTrial =
 
 
 
-    let eitherJob fSuccess fFailure   (trialResult : JobResult<_,_>) =
+    let inline eitherJob fSuccess fFailure   (trialResult : JobResult<_,_>) =
         trialResult
         |> ofJobResult
         |> Job.bind (Trial.either fSuccess fFailure)
@@ -192,17 +195,20 @@ module JobTrial =
     let inline eitherTask fSuccess fFailure (trialResult : JobResult<_,_>) = 
       eitherJob (fSuccess >> Job.awaitTask) (fFailure >> Job.awaitTask) trialResult
 
-    let inline eitherTee fSuccess fFailure result =
-        Job.tee (eitherFun fSuccess fFailure) result
-        |> bindJob id
+    let inline eitherTee fSuccess fFailure =
+        ofJobResult
+        >> Job.map(fun x -> Trial.eitherTee fSuccess fFailure x)
+        >> ofJobOfResult
 
     let inline successTee fSuccess result=
       eitherTee fSuccess ignore result
     let inline failureTee fFailure result=
       eitherTee ignore fFailure result
-    let inline eitherTeeJob fSuccess fFailure result =
-        Job.tee (eitherJob fSuccess fFailure) result
-        |> bindJob id
+    let inline eitherTeeJob fSuccess fFailure  =
+        ofJobResult
+        >> Job.bind(Job.tee(Trial.either fSuccess fFailure))
+        >> ofJobOfResult
+
     let inline successTeeJob fSuccess result=
       eitherTeeJob fSuccess Job.noop result
     let inline failureTeeJob fFailure result=
