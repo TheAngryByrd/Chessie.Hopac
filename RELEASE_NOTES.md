@@ -1,3 +1,6 @@
+#### 0.2.2 - August 18 2017
+* BUGFIX: Don't enforce null constraint on Using function in computation expression
+
 #### 0.2.1 - August 18 2017
 * BUGFIX: Don't enforce null constraint on Using function in computation expression
 
