@@ -195,6 +195,8 @@ module JobTrial =
     let inline eitherTask fSuccess fFailure (trialResult : JobResult<_,_>) = 
       eitherJob (fSuccess >> Job.awaitTask) (fFailure >> Job.awaitTask) trialResult
 
+    
+
     let inline eitherTee fSuccess fFailure =
         ofJobResult
         >> Job.map(fun x -> Trial.eitherTee fSuccess fFailure x)
@@ -273,9 +275,9 @@ module JobTrial =
       member __.Using(d:#IDisposable, body) =
             let result = fun () -> body d
             __.TryFinally (result, fun () ->
-                match d with
+                match box d with
                 | null -> ()
-                | d -> d.Dispose())
+                | _ -> d.Dispose())
       member __.While (guard, body) =
             if not <| guard () then
                 __.Zero()
