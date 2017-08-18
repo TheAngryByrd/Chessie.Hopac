@@ -170,3 +170,35 @@ module ComputationExpression =
       }
       let result = returnsReturn |> getOkValue
       Assert.Equal(42,result)
+
+    type DisposableRecord = 
+      { Id : string } 
+        interface System.IDisposable with 
+          member x.Dispose () = ()
+
+    [<Fact>]
+    let ``Computation Expreession Using Record`` () =
+      let returnsReturn = jobTrial {
+        use d = {DisposableRecord.Id = "things"}
+        let result = 42
+        try 
+          () 
+        finally
+          ()
+        return result
+      }
+      let result = returnsReturn |> getOkValue
+      Assert.Equal(42,result)
+    [<Fact>]
+    let ``Computation Expreession Using NullRecord`` () =
+      let returnsReturn = jobTrial {
+        use d : System.IDisposable = null
+        let result = 42
+        try 
+          () 
+        finally
+          ()
+        return result
+      }
+      let result = returnsReturn |> getOkValue
+      Assert.Equal(42,result)
