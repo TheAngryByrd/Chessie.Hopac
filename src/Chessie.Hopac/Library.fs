@@ -117,6 +117,12 @@ module JobTrial =
       |> ofResult
       |> bindJobResult next
 
+    let inline bindChoice (next : 'a -> JobResult<'b, 'c>) (r : Choice<'a,'c>) =
+      r 
+      |> Trial.ofChoice
+      |> ofResult
+      |> bindJobResult next
+
     let inline bindAsyncResult (next : 'a -> JobResult<'b, 'c>) (r : AsyncResult<'a,'c>) =
       r 
       |> ofAsyncResult
@@ -220,57 +226,60 @@ module JobTrial =
 
     type JobTrialBuilder () =
 
-      member __.Bind(jobResult : JobResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+      member inline __.Bind(jobResult : JobResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         bindJobResult binder jobResult
 
-      member __.Bind(jobResult : Job<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+      member inline __.Bind(jobResult : Job<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         bindJob binder jobResult
 
-      member __.Bind(result : Result<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+      member inline __.Bind(result : Result<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         bindResult binder result
 
-      member __.Bind(result : AsyncResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+      member inline __.Bind(result : AsyncResult<'a, 'c>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         bindAsyncResult binder result
 
-      member __.Bind(result : Async<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+      member inline __.Bind(result : Async<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         result |> ofAsync |> bindJobResult binder 
       
-      member __.Bind(result : Task<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
+      member inline __.Bind(result : Task<_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> = 
         result |> ofTask |> bindJobResult binder 
+
+      member inline __.Bind(result : Choice<_,_>, binder : 'a -> JobResult<'b, 'c>) : JobResult<'b, 'c> =       
+        result |> bindChoice binder
      
-      member __.Return value : JobResult<'a,'b> =
+      member inline __.Return value : JobResult<'a,'b> =
         value
         |> ofValue 
-      member __.ReturnFrom (value : JobResult<'a,'b>) =
+      member inline __.ReturnFrom (value : JobResult<'a,'b>) =
         value
 
-      member __.ReturnFrom (value : Job<_>) = 
+      member inline __.ReturnFrom (value : Job<_>) = 
         value 
         |> ofJob
       
-      member __.ReturnFrom (value : Result<'a,'b>) = 
+      member inline __.ReturnFrom (value : Result<'a,'b>) = 
         value
         |> ofResult
       
-      member __.ReturnFrom (value : AsyncResult<'a,'b>) = 
+      member inline __.ReturnFrom (value : AsyncResult<'a,'b>) = 
         value
         |> ofAsyncResult
       
-      member __.ReturnFrom (value : Async<_>) = 
+      member inline __.ReturnFrom (value : Async<_>) = 
         value
         |> ofAsync
      
-      member __.ReturnFrom (value : Task<_>) = 
+      member inline __.ReturnFrom (value : Task<_>) = 
         value
         |> ofTask
 
-      member __.Zero () = __.Return ()
+      member inline __.Zero () = __.Return ()
 
-      member __.Combine (a : JobResult<unit,'a>,b) = bindJobResult b a
+      member inline __.Combine (a : JobResult<unit,'a>,b) = bindJobResult b a
 
-      member __.Delay(f : unit -> JobResult<'a,'b>) = f 
+      member inline __.Delay(f : unit -> JobResult<'a,'b>) = f 
 
-      member __.Run (f) = f ()
+      member inline __.Run (f) = f ()
 
       member __.Using(d:#IDisposable, body) =
             let result = fun () -> body d
@@ -284,7 +293,7 @@ module JobTrial =
             else
                 bindJobResult (fun () -> __.While(guard, body)) (body())
 
-      member __.TryWith(jobResult, catchHandler : exn -> JobResult<'a, 'b>) : JobResult<'a, 'b> = 
+      member inline __.TryWith(jobResult, catchHandler : exn -> JobResult<'a, 'b>) : JobResult<'a, 'b> = 
           job.TryWith( jobResult >> ofJobResult, (catchHandler >> ofJobResult)) |> JobResult
       
       member __.TryFinally(jobResult , compensation : unit -> unit) : JobResult<'a, 'b> = 
@@ -292,7 +301,7 @@ module JobTrial =
   
     let jobTrial = JobTrialBuilder()
 
-    let catch (failCase : exn -> 'b) (v : JobResult<'a,'b>) = jobTrial {
+    let inline catch (failCase : exn -> 'b) (v : JobResult<'a,'b>) = jobTrial {
       try
         return! v
       with e -> 

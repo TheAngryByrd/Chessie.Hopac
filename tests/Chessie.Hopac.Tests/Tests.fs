@@ -8,12 +8,16 @@ open System.Threading.Tasks
 
 
 module ComputationExpression =
-
-    let getOkValue (jr : JobResult<'a,'b>) =
+    let getResult (jr : JobResult<'a,'b>) =
       jr 
       |> JobTrial.ofJobResult
       |> Hopac.run
+    let getOkValue (jr : JobResult<'a,'b>) =
+      jr 
+      |> getResult
       |> Trial.returnOrFail
+
+
 
 
     [<Fact>]
@@ -202,3 +206,26 @@ module ComputationExpression =
       }
       let result = returnsReturn |> getOkValue
       Assert.Equal(42,result)
+
+    [<Fact>]
+    let ``Computation Expreession bind choice1of2`` () =
+      let returnsReturn = jobTrial {
+
+        let! result = Choice1Of2 42
+
+        return result
+      }
+      let result = returnsReturn |> getOkValue
+      Assert.Equal(42,result)
+
+    [<Fact>]
+    let ``Computation Expreession bind choice2of2`` () =
+      let returnsReturn = jobTrial {
+
+        let! result = Choice2Of2 42
+
+        return result
+      }
+      let result = returnsReturn |> getResult
+      
+      Assert.Equal(fail 42,result)
