@@ -12,7 +12,6 @@ mono:
   - weekly # => "latest commits"
 os:  
   - linux
-  - osx 
 
 script:  
   - ./build.sh
@@ -23,4 +22,3 @@ matrix:
     - mono: alpha
     - mono: beta
     - mono: weekly
-    - os: osx # times out too often, disable at own risk
