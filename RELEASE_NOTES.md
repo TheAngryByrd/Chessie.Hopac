@@ -1,3 +1,7 @@
+#### 0.3.0 - Octoboer 13 2017
+* FEATURE: Added obOfOption/AsyncOfOption/TaskOfOption (https://github.com/TheAngryByrd/Chessie.Hopac/pull/8)
+* BREAKING: Changed ofOption semantics (https://github.com/TheAngryByrd/Chessie.Hopac/pull/8)
+
 #### 0.2.2 - August 18 2017
 * BUGFIX: Don't enforce null constraint on Using function in computation expression
 
