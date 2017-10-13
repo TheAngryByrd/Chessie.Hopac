@@ -11,7 +11,7 @@ type JobResult<'a, 'b> =
     | JobResult of Job<Result<'a, 'b>>
 
 
-module Job =    
+module Job =  
 
     let inline tee (x2yJ: _ -> Job<unit>) x = 
       x 
@@ -36,7 +36,7 @@ module JobTrial =
     let inline ofOption failCase value =
       match value with
       | Some v -> v |> ofValue
-      | None -> failCase ()
+      | None -> failCase () |>  ofFailure
 
     let inline ofChoice failCase value =
       match value with
@@ -109,6 +109,7 @@ module JobTrial =
       |> ofJobOfResult
       |> bindJobResult next
 
+
     let inline bindJob next r = 
       r |> ofJob |> bindJobResult next
 
@@ -177,18 +178,29 @@ module JobTrial =
         value
         |> bindJob (ofChoice failCase)
 
+    let inline ofJobOfOption failCase value =
+        value
+        |> bindJob (ofOption failCase)
 
     let inline ofAsyncOfChoice failCase value=
         value
         |> Job.fromAsync
         |> ofJobOfChoice failCase
 
+    let inline ofAsyncOfOption failCase value =
+        value
+        |> Job.fromAsync
+        |> ofJobOfOption failCase
+
     let inline ofTaskOfChoice failCase value=
         value
         |> Job.awaitTask
         |> ofJobOfChoice failCase
 
-
+    let inline ofTaskOfOption failCase value =
+        value
+        |> Job.awaitTask
+        |> ofJobOfOption failCase
 
     let inline eitherJob fSuccess fFailure   (trialResult : JobResult<_,_>) =
         trialResult
