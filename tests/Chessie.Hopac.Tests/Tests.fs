@@ -10,7 +10,7 @@ open System.Threading.Tasks
 module ComputationExpression =
     let getResult (jr : JobResult<'a,'b>) =
       jr 
-      |> JobTrial.ofJobResult
+      |> JobTrial.toJobOfResult
       |> Hopac.run
     let getOkValue (jr : JobResult<'a,'b>) =
       jr 
@@ -229,3 +229,16 @@ module ComputationExpression =
       let result = returnsReturn |> getResult
       
       Assert.Equal(fail 42,result)
+
+    [<Fact>]
+    let ``Computation Expreession cold task`` () =
+      
+      let returnsReturn = jobTrial {
+
+        let! result = fun () -> Task.FromResult 42
+
+        return result
+      }
+      let result = returnsReturn |> getResult
+      
+      Assert.Equal(ok 42,result)
