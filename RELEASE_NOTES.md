@@ -1,4 +1,8 @@
-#### 0.3.0 - Octoboer 13 2017
+#### 0.4.0 - August 23 2018
+* MINOR: Api Documentation (https://github.com/TheAngryByrd/Chessie.Hopac/pull/13)
+* BREAKING: Moved from netstandard1.6 to netstandard2.0 (https://github.com/TheAngryByrd/Chessie.Hopac/pull/13)
+
+#### 0.3.0 - October 13 2017
 * FEATURE: Added JobOfOption/AsyncOfOption/TaskOfOption (https://github.com/TheAngryByrd/Chessie.Hopac/pull/8)
 * BREAKING: Changed ofOption semantics (https://github.com/TheAngryByrd/Chessie.Hopac/pull/8)
 
