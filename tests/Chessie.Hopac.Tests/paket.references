@@ -1,6 +1,6 @@
+Expecto
 FSharp.Core
-Chessie
-Hopac
-group Test
-NUnit
-NUnit.Runners
+dotnet-mono
+Microsoft.NET.Test.Sdk
+YoloDev.Expecto.TestSdk
+altcover
