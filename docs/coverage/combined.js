@@ -325,10 +325,10 @@ var assemblies = [
   {
     "name": "Chessie.Hopac",
     "classes": [
-      { "name": "Chessie.Hopac.Job", "reportPath": "Chessie.Hopac_Job.htm", "coveredLines": 0, "uncoveredLines": 4, "coverableLines": 4, "totalLines": 974, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "Chessie.Hopac.Job", "reportPath": "Chessie.Hopac_Job.htm", "coveredLines": 0, "uncoveredLines": 4, "coverableLines": 4, "totalLines": 978, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
       { "name": "Chessie.Hopac.JobResult`2", "reportPath": "Chessie.Hopac_JobResult_2.htm", "coveredLines": 0, "uncoveredLines": 0, "coverableLines": 0, "totalLines": 0, "coverageType": "MethodCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
-      { "name": "Chessie.Hopac.JobTrial", "reportPath": "Chessie.Hopac_JobTrial.htm", "coveredLines": 0, "uncoveredLines": 131, "coverableLines": 131, "totalLines": 974, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 4, "lineCoverageHistory": [], "branchCoverageHistory": [] },
-      { "name": "Chessie.Hopac.Trial", "reportPath": "Chessie.Hopac_Trial.htm", "coveredLines": 0, "uncoveredLines": 2, "coverableLines": 2, "totalLines": 974, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "Chessie.Hopac.JobTrial", "reportPath": "Chessie.Hopac_JobTrial.htm", "coveredLines": 7, "uncoveredLines": 125, "coverableLines": 132, "totalLines": 978, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 2, "totalBranches": 4, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "Chessie.Hopac.Trial", "reportPath": "Chessie.Hopac_Trial.htm", "coveredLines": 0, "uncoveredLines": 2, "coverableLines": 2, "totalLines": 978, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
       { "name": "System.AssemblyVersionInformation", "reportPath": "Chessie.Hopac_AssemblyVersionInformation.htm", "coveredLines": 0, "uncoveredLines": 0, "coverableLines": 0, "totalLines": 0, "coverageType": "MethodCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
     ]},
 ];

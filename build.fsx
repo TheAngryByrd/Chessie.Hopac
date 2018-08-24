@@ -153,11 +153,17 @@ Target "AssemblyInfo" (fun _ ->
         match release.SemVer.PreRelease with
         | Some pr -> pr.Name
         | _ -> "release"
+    let releaseDate =
+        let d =
+            match release.Date with
+            | Some d -> d
+            | None -> DateTime.Now
+        d.ToString("o")
     let getAssemblyInfoAttributes projectName =
         [ Attribute.Title (projectName)
           Attribute.Product productName
           Attribute.Version release.AssemblyVersion
-          Attribute.Metadata("ReleaseDate", release.Date.Value.ToString("o"))
+          Attribute.Metadata("ReleaseDate",releaseDate)
           Attribute.FileVersion release.AssemblyVersion
           Attribute.InformationalVersion release.AssemblyVersion
           Attribute.Metadata("ReleaseChannel", releaseChannel)
