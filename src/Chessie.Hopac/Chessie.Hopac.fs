@@ -904,7 +904,7 @@ module JobTrial =
 
       member inline __.Delay(f : unit -> JobResult<'a,'b>) = f
 
-      member inline __.Run (f) = f ()
+      member inline __.Run ((f : unit -> JobResult<'a,'b>)) =  Job.delay(f >> ofJobResult) |> ofJobOfResult
 
       member __.Using(d:#IDisposable, body) =
             let result = fun () -> body d
