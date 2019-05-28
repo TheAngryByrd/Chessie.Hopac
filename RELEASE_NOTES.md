@@ -1,3 +1,6 @@
+#### 0.5.1 - May 28 2019
+* BUGFIX: Fixed Run implementation
+
 #### 0.5.0 - August 24 2018
 * MINOR: Api Documentation (https://github.com/TheAngryByrd/Chessie.Hopac/pull/13)
 * BREAKING: Moved from netstandard1.6 to netstandard2.0 (https://github.com/TheAngryByrd/Chessie.Hopac/pull/13)

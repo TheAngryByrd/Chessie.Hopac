@@ -303,7 +303,7 @@ Target "Release" DoNothing
   ==> "DotnetTest"
   ==> "GenerateCoverageReport"
   ==> "DotnetPack"
-  ==> "SourcelinkTest"
+//   ==> "SourcelinkTest"
   ==> "Publish"
   ==> "GitRelease"
   ==> "GitHubRelease"
